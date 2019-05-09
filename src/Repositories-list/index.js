@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroller";
 import moment from "moment";
+import "../CSS/Css.css";
 
 class RepositoryList extends Component {
   state = {
@@ -17,15 +18,19 @@ class RepositoryList extends Component {
     var diff = date.toISOString().split("T")[0];
     console.log("///////////////", date.setDate(date.getDate() - 30));
     console.log("*************diff", diff);
+    console.log(this.state.page);
+    console.log(this.state.per);
 
     const url = `https://api.github.com/search/repositories?q=created:>${diff}&sort=stars&order=desc&page=${page}&per_page=${per}`;
     axios.get(url).then(
       res => (
         this.setState({
           repositories: [...repositories, ...res.data.items],
-          page: page + 1
+          page: page + 1,
+          per: per + 100
         }),
-        console.log(this.state.repositories)
+        console.log(this.state.repositories),
+        console.log(url)
       )
     );
   };
@@ -55,59 +60,34 @@ class RepositoryList extends Component {
 
   render() {
     const loader = (
-      <div key={0} className="loader" style={{marginLeft:700,marginBottom:50}}>
-        Loading ...
+      <div key={0} className="loader">
+        Loading...
       </div>
     );
     var Repositories = [];
 
     this.state.repositories.map((repo, index) => {
       Repositories.push(
-        <div
-          className="Repository"
-          key={index}
-          style={{ display: "flex", flexDirection: "row", margin: 50 }}
-        >
-          <div
-            style={{
-              flex: 0.4,
-              justifyContent: "center"
-            }}
-          >
+        <div className="Repository" key={index}>
+          <div className="image">
             <img alt="" height="150" width="150" src={repo.owner.avatar_url} />
           </div>
-
-          <div style={{ flex: 3, backgroundColor: "#EFE9E9" }}>
-            <div style={{ fontSize: 20, fontWeight: "bold", margin: 15 }}>
-              {repo.name}
-            </div>
-            <div style={{ margin: 15 }}>{repo.description}</div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                margin: 15
-              }}
-            >
-              <div
-                style={{ backgroundColor: "#CDCCCC", borderStyle: "groove" }}
-              >
-                Stars:{this.handleNumber(repo.stargazers_count)}
+          <div className="details">
+            <div className="repoName"> {repo.name} </div>
+            <p className="repoDescription"> {repo.description} </p>
+            <div className="detailss">
+              <div className="stars">
+                Stars: {this.handleNumber(repo.stargazers_count)}
               </div>
-              <div
-                style={{
-                  marginLeft: 20,
-                  backgroundColor: "#CDCCCC",
-                  borderStyle: "groove"
-                }}
-              >
-                Issues:{this.handleNumber(repo.open_issues_count)}
+              <div className="issues">
+                Issues: {this.handleNumber(repo.open_issues_count)}
               </div>
-
-              <div style={{ marginLeft: 20 }}>
-                submittted:{" "}
-                {this.handleDaysDifference(repo.created_at.split("T")[0])} days
-                ago by {repo.owner.login}
+              <div className="submitted">
+                submitted
+                {" " +
+                  this.handleDaysDifference(repo.created_at.split("T")[0]) +
+                  " "}
+                days ago by {repo.owner.login}
               </div>
             </div>
           </div>
@@ -116,7 +96,7 @@ class RepositoryList extends Component {
     });
 
     return (
-      <InfiniteScroll
+      <InfiniteScroll 
         pageStart={this.state.page}
         loadMore={this.loadRepositories}
         hasMore

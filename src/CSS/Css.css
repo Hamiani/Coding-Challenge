@@ -1,0 +1,52 @@
+.loader {
+  margin-left: 700px;
+  margin-bottom: 50px;
+}
+
+.Repository {
+  display: flex;
+  flex-direction: row;
+  margin: 50px;
+}
+
+.image {
+  flex: 0.4;
+  justify-content: center;
+}
+
+.details {
+  flex: 3;
+  background-color:#FAF9F9;
+}
+
+.repoName {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin: 15px;
+}
+
+.repoDescription {
+  margin: 15px;
+}
+
+.stars {
+  background-color: #cdcccc;
+  border-style: groove;
+  padding: 2px;
+}
+
+.issues {
+  margin-left: 20px;
+  background-color: #cdcccc;
+  border-style: groove;
+  padding: 2px;
+}
+.submitted {
+  margin-left: 20px;
+}
+.detailss {
+  display: flex;
+  flex-direction: row;
+  margin: 15px;
+}
