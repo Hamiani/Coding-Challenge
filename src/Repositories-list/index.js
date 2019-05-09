@@ -1,21 +1,24 @@
 import React, { Component } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroller";
+import moment from "moment";
 
 class RepositoryList extends Component {
   state = {
     repositories: [],
     per: 100,
-    page: 1,
-    now: new Date()
+    page: 1
   };
   loadRepositories = () => {
     const { per, page, repositories } = this.state;
+    var date = new Date();
+    console.log(date);
+    date.setDate(date.getDate() - 30);
+    var diff = date.toISOString().split("T")[0];
+    console.log("///////////////", date.setDate(date.getDate() - 30));
+    console.log("*************diff", diff);
 
-    if (page === null) {
-      return;
-    }
-    const url = `https://api.github.com/search/repositories?q=created:>2017-10-22&sort=stars&order=desc&page=${page}&per_page=${per}`;
+    const url = `https://api.github.com/search/repositories?q=created:>${diff}&sort=stars&order=desc&page=${page}&per_page=${per}`;
     axios.get(url).then(
       res => (
         this.setState({
@@ -26,10 +29,33 @@ class RepositoryList extends Component {
       )
     );
   };
+  handleNumber = num => {
+    if (num >= 1000000000) {
+      return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "G";
+    }
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+    }
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+    }
+    return num;
+  };
+
+  handleDaysDifference = created_at => {
+    var date = new Date();
+
+    var a = moment(date.toISOString().split("T")[0], "YYYY-MM-DD");
+
+    var b = moment(created_at, "YYYY-MM-DD");
+
+    var days = a.diff(b, "days");
+    return days;
+  };
 
   render() {
     const loader = (
-      <div key={0} className="loader">
+      <div key={0} className="loader" style={{marginLeft:700,marginBottom:50}}>
         Loading ...
       </div>
     );
@@ -51,24 +77,37 @@ class RepositoryList extends Component {
             <img alt="" height="150" width="150" src={repo.owner.avatar_url} />
           </div>
 
-          <div style={{ flex: 3 }}>
-            <div style={{ fontSize: 20, fontWeight: "bold" }}>{repo.name}</div>
-            <div>{repo.description}</div>
+          <div style={{ flex: 3, backgroundColor: "#EFE9E9" }}>
+            <div style={{ fontSize: 20, fontWeight: "bold", margin: 15 }}>
+              {repo.name}
+            </div>
+            <div style={{ margin: 15 }}>{repo.description}</div>
             <div
               style={{
                 display: "flex",
                 flexDirection: "row",
-                marginTop: 10,
-                marginBottom: 20
+                margin: 15
               }}
             >
-              <div style={{}}>Stars:{repo.stargazers_count}</div>
-              <div style={{ marginLeft: 20 }}>
-                Issues:{repo.open_issues_count}
+              <div
+                style={{ backgroundColor: "#CDCCCC", borderStyle: "groove" }}
+              >
+                Stars:{this.handleNumber(repo.stargazers_count)}
               </div>
-              :
+              <div
+                style={{
+                  marginLeft: 20,
+                  backgroundColor: "#CDCCCC",
+                  borderStyle: "groove"
+                }}
+              >
+                Issues:{this.handleNumber(repo.open_issues_count)}
+              </div>
+
               <div style={{ marginLeft: 20 }}>
-                submittted: {repo.created_at} by {repo.owner.login}
+                submittted:{" "}
+                {this.handleDaysDifference(repo.created_at.split("T")[0])} days
+                ago by {repo.owner.login}
               </div>
             </div>
           </div>
