@@ -22,15 +22,12 @@ class RepositoryList extends Component {
       this.setState({
         repositories: [...repositories, ...res.data.items],
         page: page + 1
-      }),
-      console.log("page",this.state.page),
-      console.log("hasMore",this.state.hasMore)
+      })
     );
     if(page>10){
         this.setState({
             hasMore:false
         })
-        console.log("hasMore",this.state.hasMore)
     }
   };
   handleNumber = num => {
