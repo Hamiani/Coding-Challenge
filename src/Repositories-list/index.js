@@ -53,7 +53,6 @@ class RepositoryList extends Component {
   };
 
   render() {
-    console.log(this.state.repositories)
     const loader = (
       <div key={0} className="loader">
         Loading...
