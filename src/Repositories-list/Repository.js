@@ -15,7 +15,7 @@ const Repository = props => {
                 Stars: {props.handleNumber(repo.stargazers_count)}
               </div>
               <div className="issues">
-                Issues: {props.handleNumber(repo.open_issues_count)}
+                ISSUES: {props.handleNumber(repo.open_issues_count)}
               </div>
               <div className="submitted">
                 submitted
