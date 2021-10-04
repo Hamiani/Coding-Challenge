@@ -18,11 +18,11 @@ const Repository = props => {
                 ISSUES: {props.handleNumber(repo.open_issues_count)}
               </div>
               <div className="submitted">
-                submitted
+                SUBMMITED
                 {" " +
                   props.handleDaysDifference(repo.created_at.split("T")[0]) +
                   " "}
-                days ago by {repo.owner.login}
+                DAYS AGO BY {repo.owner.login}
               </div>
             </div>
           </div>
