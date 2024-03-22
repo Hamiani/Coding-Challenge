@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Coding-Challenge/static/css/main.4fc3b58c.chunk.css",
+    "main.js": "/Coding-Challenge/static/js/main.26eff1ba.chunk.js",
+    "main.js.map": "/Coding-Challenge/static/js/main.26eff1ba.chunk.js.map",
+    "runtime~main.js": "/Coding-Challenge/static/js/runtime~main.a8463884.js",
+    "runtime~main.js.map": "/Coding-Challenge/static/js/runtime~main.a8463884.js.map",
+    "static/js/2.44c909f9.chunk.js": "/Coding-Challenge/static/js/2.44c909f9.chunk.js",
+    "static/js/2.44c909f9.chunk.js.map": "/Coding-Challenge/static/js/2.44c909f9.chunk.js.map",
+    "index.html": "/Coding-Challenge/index.html",
+    "precache-manifest.b8ec7c04a12c57fa2b131c1eb8052bde.js": "/Coding-Challenge/precache-manifest.b8ec7c04a12c57fa2b131c1eb8052bde.js",
+    "service-worker.js": "/Coding-Challenge/service-worker.js",
+    "static/css/main.4fc3b58c.chunk.css.map": "/Coding-Challenge/static/css/main.4fc3b58c.chunk.css.map"
+  }
+}
